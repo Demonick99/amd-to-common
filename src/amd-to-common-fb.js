@@ -1,6 +1,6 @@
 var fs = require('fs');
 var _ = require('underscore');
-var esprima = require('esprima');
+var esprima = require('esprima-fb');
 var traverse = require('traverse');
 
 var AMDNode = require('./lib/AMDNode');
@@ -70,7 +70,15 @@ var AMDToCommon = (function(){
     var withExport = exportConverter(withRequire, secondPassNode);
 
     var thirdPassNode = esprima.parse(withExport, this.parseOptions);
-    return strictConverter(withExport, thirdPassNode);
+
+    var withStrict = strictConverter(withExport, thirdPassNode);
+
+    withStrict = withStrict
+      .replace(/^define\(function\(require, exports, module\){[\s\S]/, '')
+      .replace(/[\s\S]}\);$/, '')
+      .replace(/(^|\n)(\t|\s{2})/g, '$1');
+
+    return withStrict;
   };
 
   return _convert;

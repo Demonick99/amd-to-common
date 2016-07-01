@@ -17,7 +17,7 @@ module.exports = function convert(content, node){
   }
 
   // Otherwise, let's rip it out and make it the first node.
-  var strictRegex = /["']use strict['"];?\n/;
+  var strictRegex = /["']use strict['"];?[\s\S]/;
   var lenientContent = content.replace(strictRegex, '');
 
   // Let's save some trouble and assume this is a valid common style node for now.

@@ -1,17 +1,17 @@
-amd-to-common
+amd-to-common-fb
 =============
 
 Convert requireJS AMD style defines to requireJS commonJS style defines.
 
 Install
 
-    npm install -g amd-to-common
+    npm install -g amd-to-common-fb
 
 Usage:
 
-    amd-to-common [file/directory/glob] [--exclude=]
+    amd-to-common-fb [file/directory/glob] [--exclude=]
     
-Important: This /will/ rewrite your files. Please make sure they are checked in to some kind of source control before running amd-to-common.
+Important: This /will/ rewrite your files. Please make sure they are checked in to some kind of source control before running amd-to-common-fb.
 
 # What does it do?
 
@@ -53,7 +53,7 @@ There are a few advantages to using this syntax. It removes the unweildy array a
 
 ## How does it work?
 
-amd-to-common uses [esprima](http://esprima.org/) to parse your JS files into an AST. It then analyses the content of the file, and does some really gnarly string replacements in order to rewrite to CommonJS style. Ideally, it would modify the AST and use something like `escodegen` to rewrite the source, but as most projects have very different spacing styles, this would probably anger a lot of people.
+amd-to-common-fb uses [esprima](http://esprima.org/) to parse your JS files into an AST. It then analyses the content of the file, and does some really gnarly string replacements in order to rewrite to CommonJS style. Ideally, it would modify the AST and use something like `escodegen` to rewrite the source, but as most projects have very different spacing styles, this would probably anger a lot of people.
 
 ### Is it safe?
 

@@ -53,6 +53,7 @@ var addRequireStatement = function(content, amdNode){
   var newDefine = 'function(require, exports, module)';
 
   var blockContent = content.substring(functionBlockStart, content.length);
+
   return defineString + newDefine + blockContent;
 };
 

@@ -5,21 +5,23 @@ var args = require('minimist')(process.argv.slice(2));
 var glob = require('glob-all');
 var path = require('path');
 var fs = require('fs');
-var AMDToCommon = require('./amd-to-common');
+var AMDToCommon = require('./amd-to-common-fb');
 
-function getFileGlobString(arg){
+function getFileGlobString(arg, ext){
+  ext = ext || 'js';
   var stat = fs.lstatSync(arg);
   if(stat.isDirectory()){
-    return path.join(arg, '**/*.js');
+    return path.join(arg, '**/*.' + ext);
   }
   return arg;
 }
 
 var directory = _.first(args._) || './';
-var allJSFiles = getFileGlobString(directory);
+var allJSFiles = getFileGlobString(directory, 'js');
+var allJSXFiles = getFileGlobString(directory, 'jsx');
 var excludedPattern = '!' + args.exclude;
 
-glob([allJSFiles, excludedPattern], {}, function(error, files){
+glob([allJSFiles, allJSXFiles, excludedPattern], {}, function(error, files){
   var converter = new AMDToCommon({
     files: files
   });

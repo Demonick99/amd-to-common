@@ -1,19 +1,19 @@
 {
-  "name": "amd-to-common",
+  "name": "amd-to-common-fb",
   "version": "1.2.0",
   "description": "Convert AMD style requires to CommonJS style",
-  "main": "arc/amd-to-common.js",
+  "main": "arc/amd-to-common-fb.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "preferGlobal": true,
   "bin": {
-    "amd-to-common": "bin/amd-to-common"
+    "amd-to-common-fb": "bin/amd-to-common-fb"
   },
   "author": "Will Demaine",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "esprima": "^2.5.0",
+    "esprima-fb": "^15001.1001.0-dev-harmony-fb",
     "escodegen": "~1.4.1",
     "underscore": "~1.7.0",
     "minimist": "~1.1.0",
@@ -21,8 +21,8 @@
     "traverse": "~0.6.6"
   },
   "devDependencies": {
-    "tape": "~3.0.1",
+    "eslint": "~0.9.1",
     "tap-prettify": "0.0.2",
-    "eslint": "~0.9.1"
+    "tape": "~3.0.1"
   }
 }
