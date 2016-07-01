@@ -20,10 +20,12 @@ var directory = _.first(args._) || './';
 var allJSFiles = getFileGlobString(directory, 'js');
 var allJSXFiles = getFileGlobString(directory, 'jsx');
 var excludedPattern = '!' + args.exclude;
+var hasDefine = !!args.d || !!args.define;
 
 glob([allJSFiles, allJSXFiles, excludedPattern], {}, function(error, files){
   var converter = new AMDToCommon({
-    files: files
+    files: files,
+    hasDefine: hasDefine
   });
   converter.analyse();
 });

@@ -19,6 +19,7 @@ var AMDToCommon = (function(){
   var _convert = function(options){
     options = options || {};
     this.files = options.files;
+    this.hasDefine = options.hasDefine;
     this.parseOptions = { range: true, comment: true };
   };
 
@@ -73,10 +74,12 @@ var AMDToCommon = (function(){
 
     var withStrict = strictConverter(withExport, thirdPassNode);
 
-    withStrict = withStrict
-      .replace(/^define\(function\(require, exports, module\){[\s\S]/, '')
-      .replace(/[\s\S]}\);$/, '')
-      .replace(/(^|\n)(\t|\s{2})/g, '$1');
+    if (!this.hasDefine) {
+      withStrict = withStrict
+        .replace(/^define\(function\(require, exports, module\){[\s\S]/, '')
+        .replace(/[\s\S]}\);$/, '')
+        .replace(/(^|\n)(\t|\s{2})/g, '$1');
+    }
 
     return withStrict;
   };

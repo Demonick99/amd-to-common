@@ -9,7 +9,7 @@ Install
 
 Usage:
 
-    amd-to-common-fb [file/directory/glob] [--exclude=]
+    amd-to-common-fb [file/directory/glob] [--exclude=] [--define]
     
 Important: This /will/ rewrite your files. Please make sure they are checked in to some kind of source control before running amd-to-common-fb.
 

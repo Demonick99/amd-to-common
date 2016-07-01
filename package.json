@@ -1,6 +1,6 @@
 {
   "name": "amd-to-common-fb",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Convert AMD style requires to CommonJS style",
   "main": "arc/amd-to-common-fb.js",
   "scripts": {
