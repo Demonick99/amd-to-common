@@ -7,6 +7,7 @@ var AMDNode = require('./lib/AMDNode');
 var requireConverter = require('./lib/require-converter');
 var exportConverter = require('./lib/export-converter');
 var strictConverter = require('./lib/strict-converter');
+var defineRemover = require('./lib/define-remover');
 
 var AMDToCommon = (function(){
   'use strict';
@@ -59,29 +60,23 @@ var AMDToCommon = (function(){
     }, []);
 
     // For now, let's operate with a 1 per file assumption.
-    var validNode = _.first(amdNodes);
-    if(!validNode){
+    var node = _.first(amdNodes);
+    if (!node) {
       return content;
     }
 
-    var withRequire = requireConverter(content, validNode);
+    var result = requireConverter(content, node);
 
     // Do a second pass of the code now that we've rewritten it
-    var secondPassNode = esprima.parse(withRequire, this.parseOptions);
-    var withExport = exportConverter(withRequire, secondPassNode);
+    result = exportConverter(result, esprima.parse(result, this.parseOptions));
 
-    var thirdPassNode = esprima.parse(withExport, this.parseOptions);
-
-    var withStrict = strictConverter(withExport, thirdPassNode);
+    result = strictConverter(result, esprima.parse(result, this.parseOptions));
 
     if (!this.hasDefine) {
-      withStrict = withStrict
-        .replace(/^define\(function\(require, exports, module\){[\s\S]/, '')
-        .replace(/[\s\S]}\);$/, '')
-        .replace(/(^|\n)(\t|\s{2})/g, '$1');
+      result = defineRemover(result, esprima.parse(result, this.parseOptions));
     }
 
-    return withStrict;
+    return result;
   };
 
   return _convert;
