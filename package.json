@@ -1,6 +1,6 @@
 {
   "name": "amd-to-common-fb",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Convert AMD style requires to CommonJS style",
   "main": "arc/amd-to-common-fb.js",
   "scripts": {
@@ -15,6 +15,7 @@
   "dependencies": {
     "esprima-fb": "^15001.1001.0-dev-harmony-fb",
     "glob-all": "~3.0.1",
+    "js-beautify": "^1.6.3",
     "minimist": "~1.1.0",
     "traverse": "~0.6.6",
     "underscore": "~1.7.0"

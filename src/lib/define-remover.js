@@ -10,5 +10,5 @@ var _ = require('underscore');
 module.exports = function convert(content, node){
   var defineFunction = node.body[0].expression.arguments[0].body;
 
-  return content.substring(defineFunction.range[0] + 1, defineFunction.range[1] - 1).replace(/(^|\n)(\t|[\s]{2})/g, '$1');
+  return content.substring(defineFunction.range[0] + 1, defineFunction.range[1] - 1).replace(/(\n|^)(\t|[\s]{2})/g, '$1').replace(/^\n/, '');
 };

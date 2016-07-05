@@ -2,6 +2,7 @@ var fs = require('fs');
 var _ = require('underscore');
 var esprima = require('esprima-fb');
 var traverse = require('traverse');
+var beautify = require('js-beautify').js;
 
 var AMDNode = require('./lib/AMDNode');
 var requireConverter = require('./lib/require-converter');
@@ -21,6 +22,7 @@ var AMDToCommon = (function(){
     options = options || {};
     this.files = options.files;
     this.hasDefine = options.hasDefine;
+    this.isBeautify = options.isBeautify;
     this.parseOptions = { range: true, comment: true };
   };
 
@@ -74,6 +76,32 @@ var AMDToCommon = (function(){
 
     if (!this.hasDefine) {
       result = defineRemover(result, esprima.parse(result, this.parseOptions));
+    }
+
+    if (this.isBeautify) {
+      result = beautify(result, {
+          "indent_size": 4,
+          "indent_char": " ",
+          "eol": "\n",
+          "indent_level": 0,
+          "indent_with_tabs": false,
+          "preserve_newlines": true,
+          "max_preserve_newlines": 10,
+          "jslint_happy": false,
+          "space_after_anon_function": false,
+          "brace_style": "collapse",
+          "keep_array_indentation": false,
+          "keep_function_indentation": false,
+          "space_before_conditional": true,
+          "break_chained_methods": false,
+          "eval_code": false,
+          "unescape_strings": false,
+          "wrap_line_length": 0,
+          "wrap_attributes": false,
+          "wrap_attributes_indent_size": 4,
+          "end_with_newline": false,
+          "e4x": true
+      });
     }
 
     return result;

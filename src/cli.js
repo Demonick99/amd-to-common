@@ -21,11 +21,13 @@ var allJSFiles = getFileGlobString(directory, 'js');
 var allJSXFiles = getFileGlobString(directory, 'jsx');
 var excludedPattern = '!' + args.exclude;
 var hasDefine = !!args.d || !!args.define;
+var isBeautify = !!args.b || !!args.beautify;
 
 glob([allJSFiles, allJSXFiles, excludedPattern], {}, function(error, files){
   var converter = new AMDToCommon({
     files: files,
-    hasDefine: hasDefine
+    hasDefine: hasDefine,
+    isBeautify: isBeautify
   });
   converter.analyse();
 });
